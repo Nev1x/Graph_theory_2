@@ -1,23 +1,41 @@
 #include <iostream>
 #include <vector>
-#include <ctime>
-#include <string>
+#include <algorithm>
 
-using namespace std;
+// Структура для представления дуги
+struct Edge {
+    char start;  // Начальная вершина
+    char end;    // Конечная вершина
 
-class Vector {
-private:
-    int x;
-    int y;
-    int z;
-
-
+    // Конструктор
+    Edge(char s, char e) : start(s), end(e) {}
 };
 
-int main () {
+// Функция для сортировки
+bool compareEdges(const Edge& a, const Edge& b) {
+    if (a.start != b.start)
+        return a.start < b.start;  // Сортировка по начальной вершине
+    return a.end < b.end;          // Если начальные совпадают, сортировка по конечной вершине
+}
 
+int main() {
+    // Исходный список дуг
+    std::vector<Edge> edges = {
+            {'C', 'A'},
+            {'A', 'D'},
+            {'A', 'B'},
+            {'B', 'D'},
+            {'C', 'B'}
+    };
 
+    // Сортировка дуг
+    std::sort(edges.begin(), edges.end(), compareEdges);
 
+    // Вывод отсортированного списка дуг
+    std::cout << "Отсортированные дуги:" << std::endl;
+    for (const auto& edge : edges) {
+        std::cout << "(" << edge.start << ", " << edge.end << ")" << std::endl;
+    }
 
     return 0;
 }
